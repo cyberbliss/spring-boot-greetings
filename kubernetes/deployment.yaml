@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: greetings
+  labels:
+    app: greetings
+    keel.sh/policy: all
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greetings
+  template:
+    metadata:
+      labels:
+        app: greetings
+    spec:
+      containers:
+        - name: greetings
+          image: gcr.io/GCP_PROJECT_ID/greetings:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 30
+            timeoutSeconds: 10
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

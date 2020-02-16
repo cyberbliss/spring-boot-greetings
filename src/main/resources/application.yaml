@@ -1,0 +1,13 @@
+server:
+    port: 8080
+logging:
+    level:
+        cloud.cyberbliss.greetings: DEBUG
+        org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+        org.springframework.web: INFO
+    pattern:
+        console: "%-4relative [%thread] %-5level %logger{35} USER:%X{User} CID:%X{CorrelationId} --- %msg %n"
+spring:
+    output:
+        ansi:
+            enabled: DETECT
